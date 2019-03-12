@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.ActivityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.Activity">
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="name" property="name"/>
+        <result column="award_num" property="awardNum"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="enable" property="enable"/>
+        <result column="rank_num" property="rankNum"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        name, award_num, start_time, end_time, enable, rank_num
+    </sql>
+
+    <sql id="activityColumns">
+		  t.id ,
+		  t.name ,
+		  t.award_num ,
+		  t.start_time ,
+		  t.end_time ,
+		  t.enable ,
+		  t.rank_num,
+		  t.create_time ,
+		  t.update_time ,
+		  t.delete_flag
+    </sql>
+
+    <sql id="activityWhere">
+        t.delete_flag = #{DEL_FLAG_NORMAL}
+        <if test="p.enable!=null">
+            AND t.enable=#{p.enable}
+        </if>
+        <if test="p.name != null and p.name != ''">
+            AND t.name like concat('%', #{p.name}, '%')
+        </if>
+    </sql>
+
+    <!--    <select id="get" resultType="com.bp.auction.common.dal.entity.Activity">
+            SELECT <include refid="activityColumns"/> FROM activity t WHERE id = #{id}
+        </select>
+
+        <select id="findList" resultType="Activity">
+            SELECT <include refid="activityColumns"/> FROM activity t <include refid="activityJoins"/>
+            WHERE <include refid="activityWhere"/> ORDER BY id desc LIMIT #{start},#{length}
+        </select>
+
+        <select id="count" resultType="long">
+            SELECT COUNT(*) FROM activity t WHERE <include refid="activityWhere" />
+        </select>-->
+
+    <insert id="insert">
+        INSERT INTO activity (
+        	id ,
+        	name ,
+        	award_num ,
+        	start_time ,
+        	end_time ,
+        	enable ,
+        	rank_num,
+        	create_time ,
+        	delete_flag
+        ) VALUES (
+        	#{id} ,
+        	#{name} ,
+        	#{awardNum} ,
+        	#{startTime} ,
+        	#{endTime} ,
+        	#{enable} ,
+        	#{rankNum},
+        	#{createTime} ,
+        	#{deleteFlag}
+        )
+</insert>
+    <update id="update">
+        UPDATE activity SET
+	        name = #{name} ,
+	        award_num = #{awardNum} ,
+	        start_time = #{startTime} ,
+	        end_time = #{endTime} ,
+	        enable = #{enable} ,
+	        rank_num=#{rankNum},
+	        create_time = #{createTime} ,
+	        delete_flag = #{deleteFlag}
+        	WHERE id = #{id}
+</update>
+
+    <delete id="delete">
+		UPDATE activity SET delete_flag = 1 WHERE ID = #{id}
+</delete>
+    <!--查询当前有效活动列表-->
+    <select id="listValidActivity" resultType="com.bp.auction.common.dal.entity.Activity">
+        select
+        <include refid="activityColumns"/>
+        from activity t where t.delete_flag=0 and t.enable=1
+    </select>
+
+</mapper>

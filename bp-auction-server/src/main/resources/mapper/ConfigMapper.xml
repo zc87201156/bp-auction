@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.ConfigMapper">
+    <sql id="configColumns">
+        t.id,
+        t.name,
+        t.value,
+        t.remark,
+        t.channel_id,
+        t.delete_flag,
+        t.create_time,
+        t.update_time
+    </sql>
+
+    <sql id="configWhere">
+        t.delete_flag = #{DEL_FLAG_NORMAL}
+        <if test="p.name != null and p.name != ''">
+            AND t.name like concat('%', #{p.name}, '%')
+        </if>
+    </sql>
+
+    <select id="findByName" resultType="Config">
+        SELECT
+        <include refid="configColumns"/>
+        FROM config t
+        WHERE name = #{name} AND delete_flag = 0 LIMIT 1
+    </select>
+
+</mapper>

@@ -1,0 +1,72 @@
+syntax = "proto3";
+option java_package = "com.bp.auction.server.websocket.protobuf";
+option java_outer_classname = "ProtocolDataModel";
+message ProtocolData {
+    uint32 protocolId = 1;//协议号
+    uint64 sendTime = 2;//发送时间戳
+    uint32 code = 3;//状态码
+    bytes body = 4;//具体协议字节数组
+}
+
+//玩家当前账户余额响应
+message UserAccountBalanceRes {
+    uint64 balance = 1;//玩家账户余额
+}
+
+//拍卖开始响应
+message StartAuctionRes {
+    uint64 auctionId = 1;//拍卖id
+    uint64 endTime = 2;//拍卖预计结束时间戳(若无人竞价)
+}
+
+//拍卖(结束)响应
+message AuctionRes {
+    uint64 auctionId = 1;//拍卖id
+    uint64 endTime = 2;//拍卖预计结束时间戳(若无人竞价)
+    double currentPrice = 3;//当前价格
+    uint64 currentUserId = 4;//当前出价人
+    string nickname = 5;//当前出价人昵称
+    string headImg = 6;//当前出价人头像
+    uint32 vipLevel = 7;//当前出价人贵族等级
+    uint32 status = 8;//拍卖状态：1-拍卖中,2-拍卖成交,3-流拍
+    uint64 nextAuctionId = 9;//下一期拍卖id
+    bool smallUser = 10;//true-是小户，false-不是小户
+}
+
+//跑马灯响应
+message MarqueeRes {
+    string nickname = 1;//用户昵称
+    string goodsName= 2;//商品名称
+    double price = 3;//成交价格
+}
+
+//拍卖实时信息响应
+message AuctionRealtimeInfoRes {
+    uint64 auctionId = 1;//拍卖id
+    uint32 onlookerCount = 2;//围观人数
+    uint32 auctionUserCount = 3;//出价人数
+}
+
+//托管出价响应
+message DepositAuctionRes {
+    uint64 auctionId = 1;//拍卖id
+    uint32 currentAuctionTimes = 2;//本期已经成功委托出价次数
+    uint32 auctionPeriod=3;//出价时间间隔
+    uint64 auctionFeeLimit=4;//出价限额
+}
+
+//活动响应
+message ActivityRes{
+    uint64 activityId = 1;//活动id
+    uint64 num = 2;//收集的元素的数量
+    uint64 lastNum = 3;//昨日收集的数量
+    uint64 lastAwardNum = 4;//昨日获得奖励数量
+}
+
+//用户暗拍场出价(调整价格)响应
+message SealedUserAuctionRes {
+    uint64 auctionId = 1;//拍卖id
+    string nickname = 2;//用户昵称
+    bool first = 3;//是否首次出价, true-是，false-否
+}
+

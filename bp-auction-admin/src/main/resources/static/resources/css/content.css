@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS Document */
+body { margin:0px; padding:0px; font-family: "Microsoft YaHei","黑体",serif;}
+#head { width:100%; background:url(../images/headbg.jpg) repeat-x; height:45px;}
+#logo { width:492px; height:32px;  margin:2px 0px 0px 20px; float:left;}
+#inform { width:448px; height:33px; float:right; margin:5px 20px 0px 0px; background-color:#0b6cbd}
+#inform ul { margin:3px; padding:0px; }
+#inform ul li { list-style:none; float:left; margin-left:25px; line-height:26px;color:#FFF;}
+#inform ul li a {  font-family: "Microsoft YaHei","黑体",serif; text-decoration:none;color:#FFF; display:block; font-size:14px;}
+#inform ul li a:hover {color:#efefef;}
+#inform ul li img { border:0px; vertical-align:bottom;}
+
+.FONT { font-size: 30px; font-family: "Microsoft YaHei","黑体",serif ;
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(91, 93, 95, 0.5), 1px 2px 2px rgba(91, 93, 95, 0.5);}
+
+
+#xtliucheng { border:1px solid #dcdedf; float:left; margin:20px; width:95%; height:150px;}
+#titlebg { background:url(../images/titlebg.jpg); height:33px;}
+#titlebg span { margin-left:10px; line-height:33px;}
+#xtmain { width:95%; padding:10px;}
+#xtmain div { list-style:none; float:left;  width:150px; height:80px; background:url(../images/xtmainbg2.jpg) no-repeat center; text-align:center; line-height:79px; color:#FFF;}
+#xtmain div dt {width:150px; height:33px; height:33px; background:url(../images/xtmainbg1.jpg) top; text-align:center; line-height:29px; color:#5b6161; margin:0px; padding:0px;}
+#xtmain div dd {width:150px; height:33px; height:33px; background:url(../images/xtmainbg1.jpg) top; text-align:center; line-height:29px; color:#5b6161;  margin:0px; padding:0px;margin-top:15px;}
+
+
+
+#fastmenu {border:1px solid #dcdedf; float:left; margin:20px; width:95%; height:240px;}
+#titlebg { background:url(../images/titlebg.jpg); height:33px;}
+#titlebg span { margin-left:10px; line-height:33px;}
+#fastmain {width:95%; padding:10px;}
+#fastmain div { width:200px; height:80px; float:left; margin-left:20px; margin-top:10px;}
+#fastmain div dt { width:66px; height:66px; float:left;}
+#fastmain div dd {float:left; margin-left:15px;}
+.fontmainfont1 a { color:#4674b0; text-decoration:none; line-height:36px;}
+.fastmainfont2 { font-size:12px; line-height:30px;}
+
+
+#notice {border:1px solid #dcdedf; float:left;width:100%; height:200px;}
+#titlebg { background:url(../images/titlebg.jpg); height:33px;}
+#titlebg span { margin-left:10px; line-height:33px;}
+.more a { line-height:30px;color:#4674b0;}
+#noticemain {width:95%; padding:10px;}
+#noticemain ul { margin:0px; padding:0px;} 
+#noticemain ul li { margin:0px; padding:0px; width:100%; list-style:none; background:url(../images/noticebg.jpg) repeat-x; padding-left:10px; line-height:30px;} 
+#noticemain ul li img { border:0px; margin-right:20px;}
+#noticemain ul li dt { float:left;}
+#noticemain ul li dt a { text-decoration:none; color:#666666;}
+#noticemain ul li dt a:hover { color:#89b1da;}
+#noticemain ul li dd { float:right;color:#666666;}

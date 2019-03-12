@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.AuctionUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.AuctionUser">
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="user_id" property="userId"/>
+        <result column="auction_id" property="auctionId"/>
+        <result column="winner_user_id" property="winnerUserId"/>
+        <result column="auction_times" property="auctionTimes"/>
+        <result column="total_auction_fee" property="totalAuctionFee"/>
+        <result column="first_auction_time" property="firstAuctionTime"/>
+        <result column="last_auction_time" property="lastAuctionTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, auction_id, winner_user_id, auction_times, total_auction_fee, first_auction_time, last_auction_time
+    </sql>
+
+    <sql id="auctionUserColumns">
+		t.id,
+		t.user_id,
+		t.auction_id,
+		t.winner_user_id,
+		t.auction_times,
+		t.total_auction_fee,
+		t.first_auction_time,
+		t.last_auction_time,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+	<resultMap id="auctionUserInfoMap" type="com.bp.auction.server.service.bo.AuctionUserInfo">
+		<id property="auctionId" column="auction_id"/>
+		<result property="kind" column="kind"/>
+		<result property="lastAuctionTime" column="last_auction_time"/>
+		<result property="defaultGoodsImage" column="default_goods_image"/>
+		<result property="goodsName" column="goods_name"/>
+		<result property="price" column="price"/>
+		<result property="auctionTimes" column="auction_times"/>
+	</resultMap>
+
+    <sql id="auctionUserWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="auctionUserJoins">
+    </sql>
+
+<!--    <select id="get" resultType="AuctionUser">
+        SELECT
+        <include refid="auctionUserColumns"/>
+        FROM auction_user t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="AuctionUser">
+        SELECT
+        <include refid="auctionUserColumns"/>
+        FROM auction_user t
+        <include refid="auctionUserJoins"/>
+        WHERE
+        <include refid="auctionUserWhere"/>
+        ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM auction_user t WHERE
+        <include refid="auctionUserWhere"/>
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO auction_user (
+			id,
+			user_id,
+			auction_id,
+			winner_user_id,
+			auction_times,
+			total_auction_fee,
+			first_auction_time,
+			last_auction_time,
+			create_time,
+			delete_flag
+		) VALUES (
+			#{id},
+			#{userId},
+			#{auctionId},
+			#{winnerUserId},
+			#{auctionTimes},
+			#{totalAuctionFee},
+			#{firstAuctionTime},
+			#{lastAuctionTime},
+			#{createTime},
+			#{deleteFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE auction_user SET
+			user_id = #{userId},
+			auction_id = #{auctionId},
+			winner_user_id = #{winnerUserId},
+			auction_times = #{auctionTimes},
+			total_auction_fee = #{totalAuctionFee},
+			first_auction_time = #{firstAuctionTime},
+			last_auction_time = #{lastAuctionTime},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE auction_user SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+
+	<select id="findAuctioningByUserId" resultType="com.bp.auction.common.dal.entity.AuctionUser">
+		SELECT <include refid="auctionUserColumns"/> FROM auction_user t WHERE user_id = #{userId}
+		AND winner_user_id IS NULL ORDER BY last_auction_time DESC limit #{num}
+	</select>
+
+	<select id="findFailedAuctionByUserId" resultType="com.bp.auction.common.dal.entity.AuctionUser">
+		SELECT <include refid="auctionUserColumns"/> FROM auction_user t WHERE user_id = #{userId}
+		AND winner_user_id IS NOT NULL AND user_id != winner_user_id ORDER BY last_auction_time DESC limit #{num}
+	</select>
+
+	<update id="updateWinnerUserIdByAuctionId">
+		UPDATE auction_user SET winner_user_id = #{winnerUserId} WHERE auction_id = #{auctionId}
+	</update>
+
+	<update id="updateAuctionUser">
+		UPDATE auction_user SET auction_times = auction_times + 1,
+		total_auction_fee = total_auction_fee + #{auctionFee}, last_auction_time = #{auctionTime}
+		WHERE user_id = #{userId} AND auction_id = #{auctionId}
+	</update>
+
+	<insert id="insertAuctionUser">
+		INSERT INTO auction_user (
+		id,
+		user_id,
+		auction_id,
+		winner_user_id,
+		auction_times,
+		total_auction_fee,
+		first_auction_time,
+		last_auction_time,
+		create_time,
+		delete_flag
+		)
+		SELECT
+		#{id},
+		#{userId},
+		#{auctionId},
+		#{winnerUserId},
+		#{auctionTimes},
+		#{totalAuctionFee},
+		#{firstAuctionTime},
+		#{lastAuctionTime},
+		#{createTime},
+		#{deleteFlag}
+		WHERE NOT EXISTS (SELECT 1 FROM auction_user WHERE user_id = #{userId} AND auction_id = #{auctionId})
+	</insert>
+
+	<select id="findSuccessAuctionByUserId" useCache="false" resultMap="auctionUserInfoMap">
+		SELECT * FROM (
+			SELECT 0 kind,auction_id,last_auction_time,null default_goods_image,null goods_name,null price,
+			auction_times FROM auction_user WHERE user_id = winner_user_id AND user_id = #{userId}
+			UNION ALL
+			SELECT 1 kind,id auction_id,end_time last_auction_time,default_goods_image,goods_name,price,auction_times
+			FROM beginner_auction WHERE user_id = #{userId}
+		) t ORDER BY t.last_auction_time DESC limit #{num}
+	</select>
+
+</mapper>

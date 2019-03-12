@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.ViolationUserLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.ViolationUserLog">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="user_id" property="userId" />
+        <result column="auction_id" property="auctionId" />
+        <result column="start_time" property="startTime" />
+        <result column="goods_name" property="goodsName" />
+        <result column="payment_end_time" property="paymentEndTime" />
+        <result column="payment_status" property="paymentStatus" />
+        <result column="payment_time" property="paymentTime" />
+        <result column="processed" property="processed" />
+        <result column="process_time" property="processTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, auction_id, start_time, goods_name, payment_end_time, payment_status, payment_time, processed, process_time
+    </sql>
+
+    <sql id="violationUserLogColumns">
+		t.id,
+		t.user_id,
+		t.auction_id,
+		t.start_time,
+		t.goods_name,
+		t.payment_end_time,
+		t.payment_status,
+		t.payment_time,
+		t.processed,
+		t.process_time,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+    <sql id="violationUserLogWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="violationUserLogJoins">
+    </sql>
+
+<!--    <select id="get" resultType="ViolationUserLog">
+        SELECT <include refid="violationUserLogColumns"/> FROM violation_user_log t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="ViolationUserLog">
+        SELECT <include refid="violationUserLogColumns"/> FROM violation_user_log t <include refid="violationUserLogJoins"/>
+        WHERE <include refid="violationUserLogWhere"/> ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM violation_user_log t WHERE <include refid="violationUserLogWhere" />
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO violation_user_log (
+			id,
+			user_id,
+			auction_id,
+			start_time,
+			goods_name,
+			payment_end_time,
+			payment_status,
+			payment_time,
+			processed,
+			process_time,
+			create_time,
+			delete_flag
+		) VALUES (
+			#{id},
+			#{userId},
+			#{auctionId},
+			#{startTime},
+			#{goodsName},
+			#{paymentEndTime},
+			#{paymentStatus},
+			#{paymentTime},
+			#{processed},
+			#{processTime},
+			#{createTime},
+			#{deleteFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE violation_user_log SET
+			user_id = #{userId},
+			auction_id = #{auctionId},
+			start_time = #{startTime},
+			goods_name = #{goodsName},
+			payment_end_time = #{paymentEndTime},
+			payment_status = #{paymentStatus},
+			payment_time = #{paymentTime},
+			processed = #{processed},
+			process_time = #{processTime},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE violation_user_log SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+	<select id="getByAuctionId" resultType="com.bp.auction.common.dal.entity.ViolationUserLog">
+		SELECT <include refid="violationUserLogColumns"/> FROM violation_user_log t WHERE auction_id = #{auctionId}
+	</select>
+
+	<select id="findViolationList" resultType="com.bp.auction.common.dal.entity.ViolationUserLog">
+		SELECT <include refid="violationUserLogColumns"/> FROM violation_user_log t WHERE processed = 0
+		AND payment_end_time &lt; #{now} AND payment_status = 0 ORDER BY id
+	</select>
+
+	<update id="process">
+		UPDATE violation_user_log SET processed = 1, process_time = #{processTime}
+		WHERE id = #{id} AND update_time = #{updateTime}
+	</update>
+</mapper>

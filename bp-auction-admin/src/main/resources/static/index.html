@@ -1,0 +1,55 @@
+<html>
+<head>
+    <link rel="shortcut icon" href="" type="image/x-icon"/>
+    <title>蜜蜂拍卖管理中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body id="ext-body">
+<div id="defaultLoading"><span class="title"><span id="defaultLoading-msg">正在加载首页,请稍后...</span>
+        </span><span class="logo"></span></div>
+<div id="viewport">
+    <!--  <link th:href="@{resources/css/ext-all.css}" rel="stylesheet" type="text/css"/>
+      <link th:href="@{resources/css/icon.css}" rel="stylesheet" type="text/css"/>
+      <link th:href="@{resources/css/app.css}" rel="stylesheet" type="text/css"/>
+      <link th:href="@{resources/css/content.css}" rel="stylesheet" type="text/css"/>
+      <script th:src="@{resources/ext-all.js}" type="text/javascript"></script>
+      <script th:src="@{resources/jquery.min.js}" type="text/javascript"></script>
+      <script th:src="@{resources/ext-lang-zh_CN.js}" type="text/javascript"></script>
+      <script th:src="@{app/app-all.js}" type="text/javascript"></script>
+      <script th:src="@{app/app-base.js}" type="text/javascript"></script>
+      <script th:src="@{app/commFunction.js}" type="text/javascript"></script>
+      <script th:src="@{config.js}" type="text/javascript"></script>
+      <link th:href="@{resources/kindeditor/themes/default/default.css}" rel="stylesheet"/>
+      <script th:src=@{"resources/kindeditor/kindeditor-all-min.js}"></script>
+      <script th:src="@{resources/kindeditor/lang/zh_CN.js}"></script>-->
+    <link href="resources/css/ext-all.css" rel="stylesheet" type="text/css"/>
+    <link href="resources/css/icon.css" rel="stylesheet" type="text/css"/>
+    <link href="resources/css/app.css" rel="stylesheet" type="text/css"/>
+    <link href="resources/css/content.css" rel="stylesheet" type="text/css"/>
+    <script src="resources/ext-all.js" type="text/javascript"></script>
+    <script src="resources/jquery.min.js" type="text/javascript"></script>
+    <script src="resources/ext-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="app/app-all.js" type="text/javascript"></script>
+    <script src="app/app-base.js" type="text/javascript"></script>
+    <script src="app/commFunction.js" type="text/javascript"></script>
+    <script src="config.js" type="text/javascript"></script>
+    <link href="resources/kindeditor/themes/default/default.css" rel="stylesheet"/>
+    <script src="resources/kindeditor/kindeditor-all-min.js"></script>
+    <script src="resources/kindeditor/lang/zh_CN.js"></script>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    window.baseUrl = "";
+    var $gridColumn = 'background-color:#d9edfe; background-image: none;';
+    var $USER = {}
+    //获取登录名
+    callapi("admin/home/loginUserName",
+        {}, function (result) {
+            $USER.loginName = result.data;
+        });
+    //禁止后退键 作用于Firefox、Opera
+    document.onkeypress = forbidBackSpace;
+    //禁止后退键  作用于IE、Chrome
+    document.onkeydown = forbidBackSpace;
+</script>

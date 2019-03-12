@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.ViolationUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.ViolationUser">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="user_id" property="userId" />
+        <result column="violation_time" property="violationTime" />
+        <result column="violation_auction_id" property="violationAuctionId" />
+        <result column="bail_amount" property="bailAmount" />
+        <result column="goods_name" property="goodsName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, violation_time, violation_auction_id, bail_amount, goods_name
+    </sql>
+
+    <sql id="violationUserColumns">
+		t.id,
+		t.user_id,
+		t.violation_time,
+		t.violation_auction_id,
+		t.bail_amount,
+		t.goods_name,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+    <sql id="violationUserWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="violationUserJoins">
+    </sql>
+
+<!--    <select id="get" resultType="ViolationUser">
+        SELECT <include refid="violationUserColumns"/> FROM violation_user t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="ViolationUser">
+        SELECT <include refid="violationUserColumns"/> FROM violation_user t <include refid="violationUserJoins"/>
+        WHERE <include refid="violationUserWhere"/> ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM violation_user t WHERE <include refid="violationUserWhere" />
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO violation_user (
+			id,
+			user_id,
+			violation_time,
+			violation_auction_id,
+			bail_amount,
+			goods_name,
+			create_time,
+			delete_flag
+		) VALUES (
+			#{id},
+			#{userId},
+			#{violationTime},
+			#{violationAuctionId},
+			#{bailAmount},
+			#{goodsName},
+			#{createTime},
+			#{deleteFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE violation_user SET
+			user_id = #{userId},
+			violation_time = #{violationTime},
+			violation_auction_id = #{violationAuctionId},
+			bail_amount = #{bailAmount},
+			goods_name = #{goodsName},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE violation_user SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+
+	<select id="getByUserId" resultType="com.bp.auction.common.dal.entity.ViolationUser">
+		SELECT <include refid="violationUserColumns"/> FROM violation_user t WHERE user_id = #{userId}
+	</select>
+
+	<insert id="insertViolationUser">
+		INSERT INTO violation_user (
+		id,
+		user_id,
+		violation_time,
+		violation_auction_id,
+		bail_amount,
+		goods_name,
+		create_time,
+		delete_flag
+		)
+		SELECT
+		#{id},
+		#{userId},
+		#{violationTime},
+		#{violationAuctionId},
+		#{bailAmount},
+		#{goodsName},
+		#{createTime},
+		#{deleteFlag}
+		WHERE NOT EXISTS (SELECT 1 FROM violation_user WHERE user_id = #{userId})
+	</insert>
+
+	<update id="updateByUserId">
+		UPDATE violation_user SET
+		violation_time = #{violationTime},
+		violation_auction_id = #{violationAuctionId},
+		bail_amount = #{bailAmount},
+		goods_name = #{goodsName}
+		WHERE user_id = #{userId}
+	</update>
+
+</mapper>

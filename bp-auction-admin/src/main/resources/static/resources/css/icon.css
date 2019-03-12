@@ -1,0 +1,200 @@
+.icon-blank
+{
+    background: url('../themes/icons/blank.gif') no-repeat;
+}
+.icon-editadd{
+	background:url('../themes/icons/edit_add.png') no-repeat;
+}
+.icon-add{
+	background:url('../themes/icons/add_page.png') no-repeat;
+}
+.icon-add_user{
+	background:url('../themes/icons/add_user.png') no-repeat;
+}
+.icon-add_truck{
+	background:url('../themes/icons/add_truck.png') no-repeat;
+}
+.icon-add_item{
+	background:url('../themes/icons/add.png') no-repeat;
+}
+.icon-add_group{
+	background:url('../themes/icons/add_group.png') no-repeat;
+}
+.icon-add_car{
+	background:url('../themes/icons/add_car.png') no-repeat;
+}
+.icon-edit{
+	background:url('../themes/icons/pencil.png') no-repeat;
+		width:16px;
+	height:16px;
+}
+.icon-remove{
+	background:url('../themes/icons/delete.png') no-repeat;
+	width:16px;
+	height:16px;
+}
+.icon-save{
+	background:url('../themes/icons/page_save.png') no-repeat;
+}
+.icon-cut{
+	background:url('../themes/icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('../themes/icons/ok.png') no-repeat;
+}
+
+.icon-ok-test{
+	background:url('../themes/icons/ok.png') no-repeat;
+	margin-right:30
+}
+
+.icon-no{
+	background:url('../themes/icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('../themes/icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('../themes/icons/reload.png') no-repeat;
+}
+.icon-delete{
+	background:url('../themes/icons/delete.png') no-repeat;
+}
+.icon-search{
+	background:url('../themes/icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('../themes/icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('../themes/icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('../themes/icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('../themes/icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('../themes/icons/back.png') no-repeat;
+}
+.icon-sum{
+	background:url('../themes/icons/sum.png') no-repeat;
+}
+.icon-tip{
+	background:url('../themes/icons/tip.png') no-repeat;
+}
+.icon-closeall{
+	background:url('../themes/icons/closeall.png') no-repeat;
+}
+.icon-closeother{
+	background:url('../themes/icons/closeother.png') no-repeat;
+}
+.icon-colsethis{
+	background:url('../themes/icons/colsethis.png') no-repeat;
+}
+.icon-upload{
+	background:url('../themes/icons/upload.gif') no-repeat;
+}
+.icon-userGroup{
+	background:url('../themes/icons/group.gif') no-repeat;
+}
+.icon-user{
+	background:url('../themes/icons/user.gif') no-repeat;
+}
+.icon-config{
+	background:url('../themes/icons/config.png') no-repeat;
+}
+.icon-download{
+    background: url("../themes/icons/download.png") no-repeat;
+}
+.ext-mb-download {
+    background: url("../themes/icons/download.gif") no-repeat scroll 6px 0px transparent;
+    height: 52px!important;
+}
+.icon-examine
+{
+    background:url('../themes/icons/examine.png') no-repeat;
+}
+.icon-money_yen
+{
+    background:url('../themes/icons/money_yen.png') no-repeat;
+}
+.icon_package
+{
+    background:url('../themes/icons/icon_package.gif') no-repeat;
+}
+.icon_package_get
+{
+    background:url('../themes/icons/icon_package_get.gif') no-repeat;
+}
+.icon-copy
+{
+    background:url('../themes/icons/copy.gif') no-repeat;
+}
+.flag_green
+{
+    background:url('../themes/icons/flag_green.gif') no-repeat;
+}
+.tidan
+{
+    background:url('../themes/icons/tidan.gif') no-repeat;
+}
+.folderopen
+{
+    background:url('../themes/icons/folderopen.gif') no-repeat;
+}
+.template
+{
+    background:url('../themes/icons/temp.png') no-repeat;
+}
+.icon_import
+{
+    background:url('../themes/icons/icon_import.png') no-repeat;
+}
+.icon_lorry
+{
+    background:url('../themes/icons/lorry.png') no-repeat;
+}
+.icon-accept
+{
+    background:url('../themes/icons/accept.png') no-repeat;
+}
+.icon_word
+{
+    background:url('../themes/icons/icon_word.png') no-repeat;
+}
+.filter
+{
+    background:url('../themes/icons/filter.png') no-repeat;
+}
+.icon_leaf
+{
+    background:url('../themes/icons/leaf.gif') no-repeat;
+}
+.icon-excel
+{
+    background:url('../themes/icons/excel.png') no-repeat;
+}
+.output{
+	background:url('../themes/icons/user.gif') no-repeat;
+}
+.label-class               
+{
+   color: red;         
+} 
+.icon_hdd {
+    background:url('../themes/icons/hdd.png') no-repeat;
+}
+.icon_bgd {
+    background:url('../themes/icons/bgd.png') no-repeat;
+}
+.icon_bjd {
+    background:url('../themes/icons/bjd.png') no-repeat;
+}
+.icon_ycsb {
+    background:url('../themes/icons/ycsb.png') no-repeat;
+}
+.icon-download{
+	background:url('../themes/icons/download.png') no-repeat;
+}

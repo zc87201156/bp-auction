@@ -1,0 +1,76 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: bp-auction-server
+  cloud:
+#消息总线
+    bus:
+      trace:
+        enabled: true
+      enabled: true
+#消息流配置
+    stream:
+      bindings:
+        bid-topic-input:
+          destination: auction-delay-topic
+          group: test
+          content-type: application/json
+        bid-topic-output:
+          destination: auction-delay-topic
+          group: test
+          content-type: application/json
+      rabbit:
+        bindings:
+          bid-topic-input:
+            consumer:
+              delayed-exchange: true
+          bid-topic-output:
+            producer:
+              delayed-exchange: true
+
+feign:
+  httpclient:
+    enabled: true
+info:
+  app.name: bp-auction-server
+  company.name: bp
+  build.jdk: 1.8
+  build.version: 3.8.0
+
+
+# 日志配置
+logging:
+ config: classpath:logconfig/log4j2-${spring.profiles.active}.xml
+management:
+  #内部应用开启所有endpoint
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  #开启优雅关机
+  endpoint:
+    shutdown:
+      enabled: true
+
+#mybatis-plus配置
+mybatis-plus:
+  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath:/mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.bp.auction.common.dal.entity
+  configuration:
+    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+    #配置JdbcTypeForNull, oracle数据库必须配置
+    jdbc-type-for-null: 'null'
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#自定义配置项
+custom:
+  generator:
+    prefix: bp_auction #id生成器前缀，为了防止不同模块key会冲突(勿改)
+
+
+

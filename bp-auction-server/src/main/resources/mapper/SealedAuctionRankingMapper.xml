@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.SealedAuctionRankingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.SealedAuctionRanking">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="auction_id" property="auctionId" />
+        <result column="user_id" property="userId" />
+        <result column="nickname" property="nickname" />
+        <result column="head_img" property="headImg" />
+        <result column="price" property="price" />
+        <result column="rank" property="rank" />
+        <result column="auction_time" property="auctionTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        auction_id, user_id, nickname, head_img, price, rank, auction_time
+    </sql>
+
+    <sql id="sealedAuctionRankingColumns">
+		t.id,
+		t.auction_id,
+		t.user_id,
+		t.nickname,
+		t.head_img,
+		t.price,
+		t.rank,
+		t.auction_time,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+    <sql id="sealedAuctionRankingWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="sealedAuctionRankingJoins">
+    </sql>
+
+<!--    <select id="get" resultType="SealedAuctionRanking">
+        SELECT <include refid="sealedAuctionRankingColumns"/> FROM sealed_auction_ranking t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="SealedAuctionRanking">
+        SELECT <include refid="sealedAuctionRankingColumns"/> FROM sealed_auction_ranking t <include refid="sealedAuctionRankingJoins"/>
+        WHERE <include refid="sealedAuctionRankingWhere"/> ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM sealed_auction_ranking t WHERE <include refid="sealedAuctionRankingWhere" />
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO sealed_auction_ranking (
+			id,
+			auction_id,
+			user_id,
+			nickname,
+			head_img,
+			price,
+			rank,
+			auction_time,
+			create_time,
+			delete_flag
+		) VALUES (
+			#{id},
+			#{auctionId},
+			#{userId},
+			#{nickname},
+			#{headImg},
+			#{price},
+			#{rank},
+			#{auctionTime},
+			#{createTime},
+			#{deleteFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE sealed_auction_ranking SET
+			auction_id = #{auctionId},
+			user_id = #{userId},
+			nickname = #{nickname},
+			head_img = #{headImg},
+			price = #{price},
+			rank = #{rank},
+			auction_time = #{auctionTime},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE sealed_auction_ranking SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+
+	<insert id="batchInsert" parameterType="java.util.LinkedList">
+		INSERT INTO sealed_auction_ranking (
+		id,
+		auction_id,
+		user_id,
+		nickname,
+		head_img,
+		price,
+		rank,
+		auction_time,
+		create_time,
+		delete_flag
+		) VALUES
+		<foreach collection="list" item="sar" separator=",">
+			(
+			#{sar.id},
+			#{sar.auctionId},
+			#{sar.userId},
+			#{sar.nickname},
+			#{sar.headImg},
+			#{sar.price},
+			#{sar.rank},
+			#{sar.auctionTime},
+			#{sar.createTime},
+			#{sar.deleteFlag}
+			)
+		</foreach>
+	</insert>
+
+	<select id="getMyRanking" resultType="com.bp.auction.common.dal.entity.SealedAuctionRanking">
+		SELECT <include refid="sealedAuctionRankingColumns"/> FROM sealed_auction_ranking t
+		WHERE auction_id = #{auctionId} AND user_id = #{userId}
+	</select>
+
+	<select id="findByPage" resultType="com.bp.auction.common.dal.entity.SealedAuctionRanking">
+		SELECT <include refid="sealedAuctionRankingColumns"/> FROM sealed_auction_ranking t
+		WHERE auction_id = #{auctionId} ORDER BY id LIMIT #{start}, #{length}
+	</select>
+
+</mapper>

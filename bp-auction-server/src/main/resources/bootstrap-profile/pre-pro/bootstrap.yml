@@ -1,0 +1,28 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://dev.server1:9001/eureka/,http://dev.server2:9002/eureka/,http://dev.server3:9003/eureka/
+  instance:
+    #实例ID
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    #启用注册IP
+    prefer-ip-address: true
+
+spring:
+  #环境
+  profiles:
+    active: pre-pro
+  cloud:
+    config:
+      #开启以注册中心的服务ID做调用
+      discovery:
+        enabled: true
+        #根据 服务ID调用
+        service-id: bp-boot-config
+        #分支
+      label: master
+      #application- 后面的名字 以环境为后缀
+      profile: ${spring.profiles.active}
+      # 由于我们项目结构存在多个module所以以父目录
+      name: bp-auction
+      #uri: http://localhost:3344

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.AuctionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.Auction">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="goods_id" property="goodsId" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="current_price" property="currentPrice" />
+        <result column="current_user_id" property="currentUserId" />
+        <result column="nickname" property="nickname" />
+        <result column="head_img" property="headImg" />
+        <result column="vip_level" property="vipLevel" />
+        <result column="city" property="city" />
+        <result column="payment_end_time" property="paymentEndTime" />
+        <result column="auction_status" property="auctionStatus" />
+        <result column="payment_status" property="paymentStatus" />
+        <result column="payment_order_no" property="paymentOrderNo" />
+        <result column="payment_time" property="paymentTime" />
+        <result column="delivery_status" property="deliveryStatus" />
+        <result column="sort" property="sort" />
+        <result column="next_id" property="nextId" />
+        <result column="enable" property="enable" />
+        <result column="type" property="type" />
+        <result column="roll_auction_id" property="rollAuctionId" />
+        <result column="auction_class" property="auctionClass" />
+        <result column="can_deposit" property="canDeposit" />
+        <result column="free_entry_fee" property="freeEntryFee" />
+        <result column="free_raise_price" property="freeRaisePrice" />
+        <result column="operator" property="operator" />
+        <result column="environment" property="environment" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="auctionColumns">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        goods_id, start_time, end_time, current_price, current_user_id, nickname, head_img, vip_level, city, payment_end_time, auction_status, payment_status, payment_order_no, payment_time, delivery_status, sort, next_id, enable, type, roll_auction_id, auction_class, can_deposit, free_entry_fee, free_raise_price, operator, environment
+    </sql>
+
+    <select id="findLastAuctions" resultType="Auction">
+        SELECT <include refid="auctionColumns"/> FROM auction t WHERE goods_id = #{goodsId} AND delete_flag = 0
+        AND auction_status = #{auctionStatus} ORDER BY end_time DESC limit #{top}
+    </select>
+
+    <select id="findIdListInHall" resultType="long">
+        SELECT id FROM auction t WHERE environment = #{environment} AND enable = 1
+        AND (auction_status = 0 OR auction_status = 1) AND auction_class = #{auctionClass}
+        ORDER BY auction_status DESC, sort DESC
+    </select>
+    <select id="getNoStartAuctions" resultType="Auction">
+        SELECT <include refid="auctionColumns"/> FROM auction t
+        WHERE t.auction_status=0
+        AND t.enable=1
+        AND t.delete_flag=0
+        <if test="rollAuctionId!=null">
+            and t.roll_auction_id=#{rollAuctionId}
+        </if>
+    </select>
+
+    <select id="getUserWinAuctionNum" resultType="long">
+        SELECT COUNT(1) FROM auction WHERE current_user_id=#{userId} AND auction_status=2 AND payment_status=0 AND payment_end_time &gt;=#{currentTime}
+    </select>
+
+    <select id="getNoCompleteAuctionsNum" resultType="long">
+        SELECT count(1) FROM auction WHERE (auction_status = 0 OR auction_status = 1)
+        AND enable = 1 AND delete_flag = 0 AND environment = #{environment}
+    </select>
+
+</mapper>

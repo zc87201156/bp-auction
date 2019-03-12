@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" packages ="com.bp.redislog">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--这个都知道是输出日志的格式 -->
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss}-[%p] [%t] [%c] %m%n"/>
+        </Console>
+
+        <NoSql name="redis" >
+            <!--
+                host : redis server 的IP       必填
+                port : redis server 的端口     非必填     （  默认 6379）
+                appName: 应用名                必填
+                redisKey: 日志输出到某个redis的列表 非必填 （默认 bp_log_list）ELK从bp_log_list收集
+            -->
+            <Redis host="10.33.85.210" appName="bp-auction-server" port ="6379" redisKey="bp_log_list" />
+            <!--<Redis host="10.33.85.210" appName="bp_riskmonitor_admin_uic"/>-->
+        </NoSql>
+
+        <!--整个日志采取异步输出，由于混部会影响性能，故 console和redis都采用异步输出，
+            所以说有时候日志没有输出完也许应用已经可以访问了
+         -->
+        <Async name = "AsyncRedisLog">
+           <!-- <AppenderRef ref="redis" />-->
+            <AppenderRef ref="Console" />
+        </Async>
+
+    </Appenders>
+
+    <Loggers>
+        <asyncRoot level="info" includeLocation="true">
+            <appender-ref ref="Console" />
+           <!-- <appender-ref ref="redis" />-->
+        </asyncRoot>
+
+        <!--记录druid-sql的记录-->
+        <!--<logger name="druid.sql.Statement" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>-->
+        <!--druid-sql的返回值-->
+        <!--<logger name="druid.sql.ResultSet" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>-->
+    </Loggers>
+</Configuration>

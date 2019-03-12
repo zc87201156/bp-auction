@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.BeginnerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.Beginner">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="user_id" property="userId" />
+        <result column="first_auction_time" property="firstAuctionTime" />
+        <result column="total_auction_success_times" property="totalAuctionSuccessTimes" />
+        <result column="last_auction_success_date" property="lastAuctionSuccessDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, first_auction_time, total_auction_success_times, last_auction_success_date
+    </sql>
+
+    <select id="getByUserId" resultType="Beginner">
+        SELECT <include refid="Base_Column_List"/> FROM beginner t WHERE user_id = #{userId}
+    </select>
+
+    <update id="updateFirstAuctionTime">
+		UPDATE beginner SET first_auction_time = #{firstAuctionTime} WHERE user_id = #{userId}
+	</update>
+
+    <update id="auctionSuccess">
+		UPDATE beginner SET total_auction_success_times = total_auction_success_times + 1,
+		last_auction_success_date = #{auctionSuccessDate} WHERE user_id = #{userId}
+	</update>
+</mapper>

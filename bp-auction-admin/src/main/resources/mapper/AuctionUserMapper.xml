@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.admin.dal.mapper.AuctionUserMapper">
+    <sql id="auctionUserColumns">
+		t.id,
+		t.user_id,
+		t.auction_id,
+		t.winner_user_id,
+		t.auction_times,
+		t.total_auction_fee,
+		t.first_auction_time,
+		t.last_auction_time,
+		t.operate_type,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+
+    <sql id="auctionUserWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="auctionUserJoins">
+    </sql>
+
+</mapper>

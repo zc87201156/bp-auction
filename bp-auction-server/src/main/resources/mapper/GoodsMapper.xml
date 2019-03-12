@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.Goods">
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="no" property="no"/>
+        <result column="name" property="name"/>
+        <result column="default_image" property="defaultImage"/>
+        <result column="images" property="images"/>
+        <result column="market_price" property="marketPrice"/>
+        <result column="start_price" property="startPrice"/>
+        <result column="auction_fee_id" property="auctionFeeId"/>
+        <result column="plat_product_id" property="platProductId"/>
+        <result column="enable" property="enable"/>
+        <result column="operator" property="operator"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="goodsColumns">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        no, name, default_image, images, market_price, start_price, auction_fee_id, plat_product_id, enable, operator
+    </sql>
+
+    <!--查询所有上架的商品-->
+    <select id="getAll" resultType="Goods">
+        SELECT
+        <include refid="goodsColumns"/>
+        FROM goods WHERE delete_flag = 0 AND enable = 1
+    </select>
+
+</mapper>

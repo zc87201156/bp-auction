@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bp.parent</groupId>
+		<artifactId>bp-boot-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+    <groupId>com.bp.auction</groupId>
+	<artifactId>bp-auction</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>bp-auction</name>
+
+	<properties>
+		<api.version>1.0.0-SNAPSHOT</api.version>
+	</properties>
+
+    <modules>
+		<module>bp-auction-admin</module>
+        <module>bp-auction-common</module>
+		<module>bp-auction-server</module>
+    	<module>bp-auction-rpc</module>
+  </modules>
+	<dependencies>
+		<dependency>
+			<groupId>com.bp.core</groupId>
+			<artifactId>bp-boot-core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.RollAuctionMapper">
+
+    <sql id="rollAuctionColumns">
+        t.id ,
+        t.type ,
+        t.category_id ,
+        t.period ,
+        t.start_time ,
+        t.end_time ,
+        t.enable ,
+        t.status,
+        t.sort ,
+        t.operator,
+        t.current_auction_id,
+        t.current_goods_id,
+        t.current_turn,
+        t.turns,
+        t.can_deposit,
+        t.environment,
+        t.free_entry_fee,
+        t.free_raise_price,
+        t.create_time ,
+        t.update_time ,
+        t.delete_flag
+    </sql>
+    <sql id="rollAuctionWhere">
+        t.delete_flag = #{DEL_FLAG_NORMAL}
+        <if test="p.categoryId!=null">
+            and t.category_id=#{p.categoryId}
+        </if>
+        <if test="p.enable!=null">
+            and t.enable=#{p.enable}
+        </if>
+        <if test="p.environment!=null">
+            and t.environment=#{p.environment}
+        </if>
+        <if test="p.type!=null">
+            and t.type=#{p.type}
+        </if>
+    </sql>
+
+    <select id="listRollAuctions" resultType="RollAuction">
+        select <include refid="rollAuctionColumns"/> from roll_auction t
+        where t.enable=1 and t.status=0 and t.delete_flag=0 and t.environment=#{environment} order by sort desc
+    </select>
+
+    <select id="countByCategoryId" resultType="long">
+        select count(1) from roll_auction t where t.category_id=#{categoryId} and t.environment=#{environment} and t.enable=1 and t.status=0 and t.delete_flag=0
+    </select>
+</mapper>

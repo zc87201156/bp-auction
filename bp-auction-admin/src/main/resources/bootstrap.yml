@@ -1,0 +1,31 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.33.85.198:9000/eureka/,http://10.33.85.87:9000/eureka/,http://10.33.85.88:9000/eureka/
+  instance:
+    #实例ID
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    #启用注册IP
+    prefer-ip-address: true
+    #每间隔1s，向注册中心发送一次心跳，证明自己依然存活
+    lease-renewal-interval-in-seconds: 5
+    #告诉注册中心，如果我2s之内没有给你发心跳，就代表我死了，将我踢出掉
+    lease-expiration-duration-in-seconds: 10
+
+spring:
+#环境
+  profiles:
+    active: dev
+  cloud:
+    config:
+      #开启以注册中心的服务ID做调用
+      discovery:
+        enabled: true
+        #根据 服务ID调用
+        service-id: bp-boot-config
+        #分支
+      label: master
+      #application- 后面的名字 以环境为后缀
+      profile: ${spring.profiles.active}
+      # 由于我们项目结构存在多个module所以以父目录
+      name: bp-auction

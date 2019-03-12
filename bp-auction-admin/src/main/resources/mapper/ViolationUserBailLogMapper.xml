@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.admin.dal.mapper.ViolationUserBailLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.ViolationUserBailLog">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="user_id" property="userId" />
+        <result column="bail_amount" property="bailAmount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, bail_amount
+    </sql>
+
+    <sql id="violationUserBailLogColumns">
+		t.id,
+		t.user_id,
+		t.bail_amount,
+		t.create_time,
+		t.update_time,
+		t.delete_flag
+	</sql>
+
+    <sql id="violationUserBailLogWhere">
+		t.delete_flag = #{DEL_FLAG_NORMAL}
+	</sql>
+
+    <sql id="violationUserBailLogJoins">
+    </sql>
+
+<!--    <select id="get" resultType="ViolationUserBailLog">
+        SELECT <include refid="violationUserBailLogColumns"/> FROM violation_user_bail_log t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="ViolationUserBailLog">
+        SELECT <include refid="violationUserBailLogColumns"/> FROM violation_user_bail_log t <include refid="violationUserBailLogJoins"/>
+        WHERE <include refid="violationUserBailLogWhere"/> ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM violation_user_bail_log t WHERE <include refid="violationUserBailLogWhere" />
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO violation_user_bail_log (
+			id,
+			user_id,
+			bail_amount,
+			create_time,
+			delete_flag
+		) VALUES (
+			#{id},
+			#{userId},
+			#{bailAmount},
+			#{createTime},
+			#{deleteFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE violation_user_bail_log SET
+			user_id = #{userId},
+			bail_amount = #{bailAmount},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE violation_user_bail_log SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+
+</mapper>

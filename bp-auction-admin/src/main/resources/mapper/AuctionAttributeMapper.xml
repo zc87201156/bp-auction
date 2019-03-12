@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.admin.dal.mapper.AuctionAttributeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.AuctionAttribute">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="auction_id" property="auctionId" />
+        <result column="attribute" property="attribute" />
+        <result column="type" property="type" />
+        <result column="value" property="value" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        auction_id, attribute, type, value
+    </sql>
+
+    <select id="getAttributesByAuctionId" resultType="AuctionAttribute">
+        SELECT <include refid="Base_Column_List"/> FROM auction_attribute t WHERE auction_id = #{auctionId}
+    </select>
+
+    <update id="updateAttributeValue">
+		UPDATE auction_attribute SET value = #{value} WHERE auction_id = #{auctionId} AND attribute = #{attribute}
+	</update>
+
+    <insert id="batchInsert" parameterType="java.util.LinkedList">
+        INSERT INTO auction_attribute (
+        id,
+        auction_id,
+        attribute,
+        type,
+        value,
+        create_time,
+        delete_flag
+        )VALUES
+        <foreach collection="list" item="aa" separator=",">
+            (
+            #{aa.id},
+            #{aa.auctionId},
+            #{aa.attribute},
+            #{aa.type},
+            #{aa.value},
+            #{aa.createTime},
+            #{aa.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

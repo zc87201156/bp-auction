@@ -1,0 +1,246 @@
+.south {
+	background: #D2E0F2;
+}
+
+.footer {
+	text-align: center;
+	color: #15428B;
+	padding: 0px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
+.GIS-EnterpriseList:hover {
+	background-color: #DFE8F6;
+	cursor: pointer;
+}
+
+.GIS-EnterpriseList {
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.GIS-EnterpriseList_highlight {
+	background-color: #DFE8F6;
+	cursor: pointer;
+}
+
+.actionColumn_Delete {
+	margin-left: 10px;
+}
+
+.checkboxLabelStyleByAuth {
+	color: #FF0000;
+}
+
+.x-mask-msg div {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-btn-default-small .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-default-medium .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-default-large .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-default-toolbar-small .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-default-toolbar-medium .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-default-toolbar-large .x-btn-inner {
+	font-size: 12px;
+}
+
+.x-btn-group-header-text-default-framed {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+table.x-datepicker-inner th {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+table.x-datepicker-inner a {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-monthpicker-item {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-menu-item-text {
+	font-size: 12px;
+}
+
+.x-column-header {
+	font: bold 12px/15px ����, tahoma, arial, verdana, sans-serif;
+	font: bold 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-grid-row .x-grid-cell {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-grid-rowbody {
+	font: normal 12px/13px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-grid-group-title {
+	font: bold 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-grid-row-editor .x-form-field {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif !important
+}
+
+.x-grid-row-editor .x-form-display-field {
+	font: normal 11px ����, tahoma, arial, verdana, sans-serif !important;
+}
+
+.x-form-invalid-under {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-fieldset-header {
+	font: 12px bold ����, tahoma, arial, verdana, sans-serif;
+}
+
+.x-html-editor-tb .x-font-select {
+	font-size: 12px
+}
+
+.x-panel-header-default {
+	font-size: 12px;
+}
+
+.x-panel-header-text-default {
+	font-size: 12px;
+}
+
+.x-panel-header-default-framed {
+	font-size: 12px;
+}
+
+.x-panel-header-text-default-framed {
+	font-size: 12px;
+}
+
+.x-tip-header-text {
+	font-size: 12px;
+}
+
+.x-tip-header, .x-tip-body, .x-form-invalid-tip-body {
+	font-size: 12px;
+}
+
+.x-progress-text {
+	font-size: 12px;
+}
+
+.x-toolbar {
+	font-size: 12px;
+}
+
+.x-toolbar .x-form-item-label {
+	font-size: 11px;
+}
+
+.x-toolbar .x-toolbar-text {
+	font-size: 12px;
+}
+
+.x-window-header-text-default {
+	font-size: 12px
+}
+
+.x-tab-bar {
+	font-size: 12px;
+}
+
+.x-tab button {
+	font-size: 12px;
+}
+
+.x-dd-drag-ghost {
+	font: normal 12px ����, tahoma, arial, verdana, sans-serif;
+}
+
+#defaultLoading {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	margin-top: -70px;
+}
+
+#defaultLoading .title {
+	font-family: "Exo", sans-serif;
+	font-size: 24px;
+	color: gray;
+	text-align: center;
+	white-space: nowrap;
+	display: block;
+}
+
+#defaultLoading .logo {
+	background: url("../images/loading.gif") no-repeat center;
+	display: block;
+	height: 120px;
+}
+
+.yellow-row .x-grid-cell {
+	background-color: #FFFFB9 !important;
+}
+
+.x-grid-row .custom-column {
+	background-color: #d9edfe !important;
+}
+
+.x-selectable, .x-selectable * {
+	-moz-user-select: text ! important;
+	-khtml-user-select: text ! important;
+}
+
+.red-row .x-grid-cell {
+	background-color: #FF0000 !important;
+}
+
+pre {
+	outline: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px;
+}
+
+.string {
+	color: green;
+}
+
+.number {
+	color: darkorange;
+}
+
+.boolean {
+	color: blue;
+}
+
+.null {
+	color: magenta;
+}
+
+.key {
+	color: red;
+}
+
+.x-grid-cell.caneditcolumn {
+	background-color: #cedff2;
+}
+a{ color:#00F}
+a:hover{ color:#F00}

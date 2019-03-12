@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.admin.dal.mapper.RankAwardConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.RankAwardConfig">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="rank_type" property="rankType" />
+        <result column="rank_num" property="rankNum" />
+        <result column="award_name" property="awardName" />
+        <result column="award_image" property="awardImage" />
+        <result column="plat_award_type" property="platAwardType" />
+        <result column="plat_business_amount" property="platBusinessAmount" />
+        <result column="plat_fragment_id" property="platFragmentId" />
+        <result column="plat_fragment_num" property="platFragmentNum" />
+        <result column="plat_phy_awards_id" property="platPhyAwardsId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        rank_type, rank_num, award_name, award_image, plat_award_type, plat_business_amount, plat_fragment_id, plat_fragment_num, plat_phy_awards_id
+    </sql>
+
+    <sql id="rankAwardConfigColumns">
+		t.id,
+		t.rank_type,
+		t.rank_num,
+		t.award_name,
+		t.award_image,
+		t.plat_award_type,
+		t.plat_business_amount,
+		t.plat_fragment_id,
+		t.plat_fragment_num,
+		t.plat_phy_awards_id,
+		t.delete_flag,
+		t.create_time,
+		t.update_time
+	</sql>
+
+    <sql id="rankAwardConfigWhere">
+        t.delete_flag = #{DEL_FLAG_NORMAL}
+    </sql>
+
+    <sql id="rankAwardConfigJoins">
+    </sql>
+
+<!--    <select id="get" resultType="RankAwardConfig">
+        SELECT
+        <include refid="rankAwardConfigColumns"/>
+        FROM rank_award_config t WHERE id = #{id}
+    </select>
+    <select id="findList" resultType="RankAwardConfig">
+        SELECT
+        <include refid="rankAwardConfigColumns"/>
+        FROM rank_award_config t
+        <include refid="rankAwardConfigJoins"/>
+        WHERE
+        <include refid="rankAwardConfigWhere"/>
+        ORDER BY id desc LIMIT #{start}, #{length}
+    </select>
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM rank_award_config t WHERE
+        <include refid="rankAwardConfigWhere"/>
+    </select>-->
+
+    <insert id="insert">
+		INSERT INTO rank_award_config (
+			id,
+			rank_type,
+			rank_num,
+			award_name,
+			award_image,
+			plat_award_type,
+			plat_business_amount,
+			plat_fragment_id,
+			plat_fragment_num,
+			plat_phy_awards_id,
+			delete_flag,
+			create_time
+		) VALUES (
+			#{id},
+			#{rankType},
+			#{rankNum},
+			#{awardName},
+			#{awardImage},
+			#{platAwardType},
+			#{platBusinessAmount},
+			#{platFragmentId},
+			#{platFragmentNum},
+			#{platPhyAwardsId},
+			#{deleteFlag},
+			#{createTime}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE rank_award_config SET
+			rank_type = #{rankType},
+			rank_num = #{rankNum},
+			award_name = #{awardName},
+			award_image = #{awardImage},
+			plat_award_type=#{platAwardType},
+			plat_business_amount=#{platBusinessAmount},
+			plat_fragment_id=#{platFragmentId},
+			plat_fragment_num=#{platFragmentNum},
+			plat_phy_awards_id=#{platPhyAwardsId},
+			delete_flag = #{deleteFlag}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="delete">
+		UPDATE rank_award_config SET delete_flag = 1 WHERE ID = #{id}
+	</delete>
+
+	<select id="listByRankType" resultType="com.bp.auction.common.dal.entity.RankAwardConfig">
+		select
+		<include refid="rankAwardConfigColumns"/>
+		from rank_award_config t
+		where t.rank_type=#{rankType} and t.delete_flag=0 order by rank_num asc
+	</select>
+
+</mapper>

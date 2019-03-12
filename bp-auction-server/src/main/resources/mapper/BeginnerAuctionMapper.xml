@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.BeginnerAuctionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.BeginnerAuction">
+    <result column="id" property="id" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="delete_flag" property="deleteFlag" />
+        <result column="user_id" property="userId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="price" property="price" />
+        <result column="end_time" property="endTime" />
+        <result column="auction_times" property="auctionTimes" />
+        <result column="goods_name" property="goodsName" />
+        <result column="default_goods_image" property="defaultGoodsImage" />
+        <result column="market_price" property="marketPrice" />
+        <result column="start_price" property="startPrice" />
+        <result column="delivery_status" property="deliveryStatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        user_id, goods_id, price, end_time, auction_times, goods_name, default_goods_image, market_price, start_price, delivery_status
+    </sql>
+
+    <select id="getByUserId" resultType="BeginnerAuction">
+        SELECT <include refid="Base_Column_List"/> FROM beginner_auction t WHERE user_id = #{userId}
+    </select>
+</mapper>

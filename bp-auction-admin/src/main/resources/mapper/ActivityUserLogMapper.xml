@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.admin.dal.mapper.ActivityUserLogMapper">
+    <sql id="activityUserLogColumns">
+		  t.id ,
+		  t.activity_id ,
+		  t.issue,
+		  t.user_id ,
+		  t.num ,
+		  t.award_num ,
+		  t.rank_num ,
+		  t.award_status,
+		  t.create_time ,
+		  t.update_time ,
+		  t.delete_flag
+    </sql>
+    <sql id="activityUserLogWhere">
+        t.delete_flag = #{DEL_FLAG_NORMAL}
+        <if test="p.activityId!=null">
+            and t.activity_id=#{p.activityId}
+        </if>
+        <if test="p.issue!=null">
+            and t.issue=#{p.issue}
+        </if>
+        <if test="p.userId!=null">
+            and t.user_id=#{p.userId}
+        </if>
+    </sql>
+
+    <sql id="activityUserLogJoins">
+
+    </sql>
+
+    <!--    <select id="get" resultType="ActivityUserLog">
+            SELECT
+            <include refid="activityUserLogColumns"/>
+            FROM activity_user_log t WHERE id = #{id}
+        </select>
+
+        <select id="findList" resultType="ActivityUserLog">
+            SELECT
+            <include refid="activityUserLogColumns"/>
+            FROM activity_user_log t
+            <include refid="activityUserLogJoins"/>
+            WHERE
+            <include refid="activityUserLogWhere"/>
+            ORDER BY id asc LIMIT #{start},#{length}
+        </select>
+
+        <select id="count" resultType="long">
+            SELECT COUNT(*) FROM activity_user_log t WHERE
+            <include refid="activityUserLogWhere"/>
+        </select>-->
+
+    <insert id="insert">
+        INSERT INTO activity_user_log (
+        	id ,
+        	activity_id ,
+        	issue,
+        	user_id ,
+        	num ,
+        	award_num ,
+        	rank_num ,
+        	award_status,
+        	create_time ,
+        	delete_flag
+        ) VALUES (
+        	#{id} ,
+        	#{activityId} ,
+        	#{issue},
+        	#{userId} ,
+        	#{num} ,
+        	#{awardNum} ,
+        	#{rankNum} ,
+        	#{awardStatus},
+        	#{createTime} ,
+        	#{deleteFlag}
+        )
+</insert>
+    <update id="update">
+        UPDATE activity_user_log SET
+	        activity_id = #{activityId} ,
+	        issue=#{issue},
+	        user_id = #{userId} ,
+	        num = #{num} ,
+	        award_num = #{awardNum} ,
+	        rank_num = #{rankNum} ,
+	        award_status=#{awardStatus},
+	        delete_flag = #{deleteFlag}
+        	WHERE id = #{id}
+</update>
+
+    <delete id="delete">
+		UPDATE activity_user_log SET delete_flag = 1 WHERE ID = #{id}
+</delete>
+
+    <select id="getUserLog" resultType="com.bp.auction.common.dal.entity.ActivityUserLog">
+        select
+        <include refid="activityUserLogColumns"/>
+        from activity_user_log t
+        where t.activity_id=#{activityId} and t.issue=#{issue} and t.user_id=#{userId} limit 1
+    </select>
+
+
+    <insert id="batchInsert" parameterType="java.util.LinkedList">
+        INSERT INTO activity_user_log (
+        id ,
+        activity_id ,
+        issue,
+        user_id ,
+        num ,
+        award_num ,
+        rank_num ,
+        award_status,
+        create_time ,
+        delete_flag
+        )VALUES
+        <foreach collection="list" item="aa" separator=",">
+            (
+            #{aa.id},
+            #{aa.activityId},
+            #{aa.issue},
+            #{aa.userId},
+            #{aa.num},
+            #{aa.awardNum},
+            #{aa.rankNum},
+            #{aa.awardStatus},
+            #{aa.createTime},
+            #{aa.deleteFlag}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

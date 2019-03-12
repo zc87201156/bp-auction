@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bp.auction.server.dal.mapper.AuctionFeeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bp.auction.common.dal.entity.AuctionFee">
+        <result column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="fee" property="fee"/>
+        <result column="price" property="price"/>
+        <result column="enable" property="enable"/>
+    </resultMap>
+    <sql id="auctionFeeWhere">
+        delete_flag = #{DEL_FLAG_NORMAL}
+        <if test="p.fee != null">
+            AND fee = #{p.fee}
+        </if>
+        <if test="p.price != null">
+            AND price = #{p.price}
+        </if>
+        <if test="p.enable != null">
+            AND enable = #{p.enable}
+        </if>
+    </sql>
+    <!-- 通用查询结果列 -->
+    <sql id="auctionFeeColumns">
+        id,
+        create_time,
+        update_time,
+        delete_flag,
+        fee, price, enable
+    </sql>
+
+    <select id="getAll" resultType="AuctionFee">
+        SELECT <include refid="auctionFeeColumns"/> FROM auction_fee t WHERE enable = 1 AND delete_flag = 0
+    </select>
+
+</mapper>
